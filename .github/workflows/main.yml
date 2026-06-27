@@ -1,0 +1,33 @@
+name: Tengeneza APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Fungua kodi zako
+      uses: actions/checkout@v4
+
+    - name: Weka Java 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        cache: gradle
+
+    - name: Ruhusu Gradle Iendesheke
+      run: chmod +x gradlew
+
+    - name: Tengeneza APK (Build APK)
+      run: ./gradlew assembleDebug
+
+    - name: Pakia APK (Upload APK)
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
