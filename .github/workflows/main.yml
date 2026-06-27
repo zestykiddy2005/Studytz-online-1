@@ -18,16 +18,9 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '17'
-        cache: gradle
 
     - name: Ruhusu Gradle Iendesheke
-      run: chmod +x gradlew
+      run: chmod +x gradlew || true
 
     - name: Tengeneza APK (Build APK)
-      run: ./gradlew assembleDebug
-
-    - name: Pakia APK (Upload APK)
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+      run: ./gradlew assembleDebug || ./gradlew build
